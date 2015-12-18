@@ -22,6 +22,7 @@ import android.widget.ListAdapter;
 
 import com.etsy.android.grid.StaggeredGridView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -83,8 +84,25 @@ public class MainActivity extends AppCompatActivity
         OnlineBooksGridAdapter adapter=new OnlineBooksGridAdapter(books,this);
 
         StaggeredGridView gridView = (StaggeredGridView) findViewById(R.id.grid_view);
-
         gridView.setAdapter(adapter);
+
+        File[] va= Utilities.getPdfFiles();
+        ArrayList<OfflineBook>offLibeBooks=new ArrayList<OfflineBook>();
+        for (int i=0;i<va.length;i++){
+            OfflineBook book=new OfflineBook();
+            book.path=va[i].getPath();
+            book.title=va[i].getName();
+            offLibeBooks.add(book);
+        }
+        StaggeredGridView gridView1 = (StaggeredGridView) findViewById(R.id.grid_view1);
+
+        OfflineBooksGridAdapter offlineBooksGridAdapter=new OfflineBooksGridAdapter(offLibeBooks,this);
+        gridView1.setAdapter(offlineBooksGridAdapter);
+
+        Utilities.setListViewHeightBasedOnChildren(gridView);
+        Utilities.setListViewHeightBasedOnChildren(gridView1);
+
+
     }
 
     @Override
