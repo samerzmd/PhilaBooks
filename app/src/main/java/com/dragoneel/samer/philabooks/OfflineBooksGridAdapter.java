@@ -78,18 +78,19 @@ public class OfflineBooksGridAdapter implements ListAdapter {
         // fill data
         else
             holder = (ViewHolder) rowView.getTag();
-        final OfflineBook book=mBooks.get(position);
+        if(mBooks.size()>0) {
+            final OfflineBook book = mBooks.get(position);
 
-        holder.title.setText(book.title);
-        rowView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent o=new Intent(context,PdfViewActivity.class);
-                    o.putExtra("path",book.path);
-                context.startActivity(o);
-            }
-        });
-
+            holder.title.setText(book.title);
+            rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent o = new Intent(context, PdfViewActivity.class);
+                    o.putExtra("path", book.path);
+                    context.startActivity(o);
+                }
+            });
+        }
         return rowView;
     }
 
